@@ -1,0 +1,10 @@
+core = 7.x
+description = Módulo de exemplo para entidades
+name = Produto
+dependencies[] = entity
+package = Example
+version = 7.x-1.0-dev
+project = produto
+files[] = produto.entity.inc
+files[] = produto.views.inc
+files[] = produto.views_handler.inc

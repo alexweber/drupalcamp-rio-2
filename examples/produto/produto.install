@@ -1,0 +1,156 @@
+<?php
+/**
+ * @file
+ * Hooks de instalação do módulo Produto.
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * Tipos de dados disponíveis: http://drupal.org/node/159605
+ */
+function produto_schema() {
+  $schema = array(
+    // Tabela de produto.
+    'produto' => array(
+      'description' => 'Armazena produtos.',
+      'fields' => array(
+        // Id único.
+        'pid' => array(
+          'type' => 'serial',
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique produto ID.'
+        ),
+        // Nome.
+        'title' => array(
+          'description' => 'O nome desde produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Tipo.
+        'type' => array(
+          'description' => 'O {produto_type}.name desde produto.',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Autor.
+        'uid' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => NULL,
+          'description' => "The {users}.uid of the associated user.",
+        ),
+        // SKU.
+        'sku' => array(
+          'description' => 'O SKU do produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+      ),
+      'indexes' => array(
+        'uid' => array('uid'),
+        'sku' => array('sku'),
+      ),
+      // Opcional, útil para documentação.
+      'foreign keys' => array(
+        'uid' => array(
+          'table' => 'users',
+          'columns' => array('uid' => 'uid'),
+        ),
+        'type' => array(
+          'table' => 'produto_type',
+          'columns' => array('type' => 'name'),
+        ),
+      ),
+      'primary key' => array('pid'),
+    ),
+
+    // Tabela de tipo de produto (bundle).
+    'produto_type' => array(
+      'description' => 'Armazena informações sobre tipos de produtos.',
+      'fields' => array(
+        // Chave primária.
+        'id' => array(
+          'type' => 'serial',
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique produto type ID.',
+        ),
+        // Machine name (slug).
+        'name' => array(
+          'description' => 'O nome "de máquina" do tipo de produto.',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+        ),
+        // Nome.
+        'label' => array(
+          'description' => 'O nome "humano" do tipo de produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Descrição.
+        'description' => array(
+          'description' => 'Uma breve descrição do tipo de produto.',
+          'type' => 'text',
+          'not null' => TRUE,
+          'size' => 'medium',
+          'translatable' => TRUE,
+        ),
+        // Campos padrão para exportar via Features.
+        'weight' => array(
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+          'size' => 'tiny',
+          'description' => 'O peso desde tipo de produto em relação aos demais.',
+        ),
+        // Dados serializados.
+        'data' => array(
+          'type' => 'text',
+          'not null' => FALSE,
+          'size' => 'big',
+          'serialize' => TRUE,
+          'description' => 'Um array de dados adicionais serializados.',
+        ),
+        // Status (padrão, sobrescrito).
+        'status' => array(
+          'type' => 'int',
+          'not null' => TRUE,
+          // Set the default to ENTITY_CUSTOM without using the constant as it is
+          // not safe to use it at this point.
+          'default' => 0x01,
+          'size' => 'tiny',
+          'description' => 'O status exportável deste tipo de produto.',
+        ),
+        // Módulo.
+        'module' => array(
+          'description' => 'O módulo que definiu este tipo, caso tenha sido por código.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'primary key' => array('id'),
+      'unique keys' => array(
+        'name' => array('name'),
+      ),
+    ),
+  );
+
+  // Suporte ao módulo EntityCache.
+  // Copiamos o schema da tabela de cache do core.
+  $schema['cache_entity_produto'] = drupal_get_schema_unprocessed('system', 'cache');
+  // Alteramos a descrição.
+  $schema['cache_entity_produto']['description'] = "Tabela de cache usada para produtos.";
+
+  return $schema;
+}

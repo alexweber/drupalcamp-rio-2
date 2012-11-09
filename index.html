@@ -7,9 +7,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/themes/twilight.css" rel="stylesheet" />
     <link rel="shortcut icon" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   </head>
   <body class="impress-not-supported">
     <div class="fallback-message">
@@ -20,32 +20,1876 @@
     <!-- Bele, acabaram as preliminares, bora pro conteúdo! -->
     <div id="impress" data-transition-duration="2000">
 
-      <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
-        <q>Aren't you just <b>bored</b> with all those slides-based presentations?</q>
-      </div>
+      <article id="titulo" class="step slide" data-x="-1000" data-y="-1500">
+        <h1>Dominando as Entidades no Drupal 7</h1>
 
+        <img class="drupal-brasil-logo" src="images/druplicon-brasil.png" />
 
+        <h2>Drupalcamp Rio 2 - 10/11/2012</h2>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+        </footer>
+      </article>
+
+      <article id="sobre" class="step slide" data-x="0" data-y="-1500">
+        <h1>Eu</h1>
+
+        <div class="content">
+          <ul class="med">
+            <li>Programador</li>
+            <li>Certificado em PHP pela Zend</li>
+            <li>Drupaleiro</li>
+            <li>Casado com a Manu</li>
+            <li>Corinthiano e sofredor, graças a Deus!</li>
+          </ul>
+        </div>
+
+        <img id="alex" src="images/alex-drupalcon.jpg" />
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="social" class="step slide" data-x="1000" data-y="-1500">
+        <h1>Add Eu Ae!</h1>
+
+        <div class="content">
+          <ul>
+            <li class="site">http://alexweber.com.br</li>
+            <li class="twitter">@alexweber15</li>
+            <li class="google">http://gplus.to/alexweber15</li>
+          </ul>
+
+          <div class="social-icons">
+            <img class="social-icon" src="images/twitter-icon.png" />
+            <img class="social-icon" src="images/google-icon.png" />
+          </div>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="intro" class="step slide" data-x="2000" data-y="-1500">
+        <h1>Entidades no Drupal 7</h1>
+
+        <div class="content">
+          <ul class="huge">
+            <li>Todos manjam?</li>
+            <li>Refrescada de memória?</li>
+            <li>Bora!</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="d6-entidade" class="step slide" data-x="-1000" data-y="0">
+        <div class="content">
+          <h2>No Drupal 6 não existiam</h2>
+
+          <img src="images/d6-estrutura.png" />
+
+          <h3>Os principais objetos do Drupal eram representados de maneira independente.</h3>
+
+          <div class="breather">
+            <ul class="small">
+              <li>Eles fazem várias coisas de uma maneira bem parecida, mas nem tudo. O código é difícil de manter e as estruturas são difíceis de estender.</li>
+              <li>Vários módulo gambi: Content Profile, Taxonomy Image, Node Comments, Webform, etc.</li>
+          </ul>
+          </div>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="d7-entidade" class="step slide" data-x="-1000" data-y="1000">
+        <div class="content">
+          <h2>Manja abstração? Herança?</h2>
+          <h3>Lembra daquelas aulas de Java na facul?</h3>
+
+          <img src="images/d7-estrutura.png" height="330"/>
+
+          <ul class="small">
+            <li>Espécie de superclasse para objetos de Drupal.</li>
+            <li>API coesa, extensível e robusta</li>
+            <li>Podemos criar outros tipos de entidades!</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="conceito" class="step slide" data-x="-2000" data-y="1000">
+        <h1>Conceito</h1>
+        <div class="content">
+          <h3>Entidades são "cidadões de primeira classe" no Drupal 7</h3>
+
+          <ul class="med">
+            <li>Principal tipo de dado no Drupal 7</li>
+            <li>Fieldable; podem ter <b>fields</b></li>
+            <li>Possuem revisões</li>
+            <li>Possuem <em>view modes</em></li>
+            <li><b>Exportable</b>; podem ser exportadas via <b>features</b><sup>*</sup></li>
+            <li>Visualizadas no endereço: "tipo_de_entidade"/"id" (node/1)</li>
+          </ul>
+          <span class="footnote">* Somente a configuração</span>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="conceito-2" class="step slide" data-x="-3000" data-y="1000">
+        <div class="content">
+          <h2>Bundles, Entidades, Fields e Propriedades</h2>
+          <h3>É mais fácil pensar em Nodes e Tipos de Conteúdo</h3>
+
+          <ul class="small">
+            <li>O tipo de entidade é "Node"</li>
+            <li>Cada tipo de conteúdo é na verdade um <b>bundle</b></li>
+            <li>Cada bundle pode ter quantos campos (<b>fields</b>) quiser</li>
+            <li>Logo, um bundle é um "pacote" que contem um tipo de entidade junto com alguns fields (ou nenhum)</li>
+            <li><b>Propriedades</b> são "campos" especiais (não são fields) compartilhados entre todas entidades de um tipo</li>
+            <li>Node: publicado, promovido para a página inicial e destacado no topo de listas</li>
+            <li>Muitas mais na real: autor, datas de criação e atualização, título, idioma, etc</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="conceito-3" class="step slide" data-x="-4000" data-y="1000">
+        <div class="content">
+          <h1>Entidades do Core</h1>
+          <table width="100%">
+            <tr>
+              <th scope="col">Entidade</th>
+              <th scope="col">Bundle</th>
+              <th scope="col">Fields</th>
+              <th scope="col">Propriedades</th>
+            </tr>
+            <tr>
+              <td>Node</td>
+              <td>Article</td>
+              <td>Body, Image, Tags</td>
+              <td>Título, Publicado, Promovido, Destacado, Autor, Data de criação, etc.</td>
+            </tr>
+            <tr>
+              <td>Node</td>
+              <td>Page</td>
+              <td>Body</td>
+              <td>Título, Publicado, Promovido, Destacado, Autor, Data de criação, etc.</td>
+            </tr>
+            <tr>
+              <td>Taxonomy Vocabulary</td>
+              <td>Taxonomy Vocabulary</td>
+              <td>FALSE</td>
+              <td>Nome, Descrição, Idioma, etc.</td>
+            </tr>
+            <tr>
+              <td>Taxonomy Term</td>
+              <td>Tags</td>
+              <td>(nenhum)</td>
+              <td>Vocabulário, Nome, Descrição</td>
+            </tr>
+            <tr>
+              <td>Comment</td>
+              <td>Article</td>
+              <td>Body</td>
+              <td>Assunto, Status, Autor, etc.</td>
+            </tr>
+          </table>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="conceito-4" class="step slide" data-x="-5000" data-y="1000">
+        <div class="content">
+          <h1>Bundles</h1>
+
+          <ul class="small">
+            <li>Cada tipo de entidade precisa ter pelo menos um bundle</li>
+            <li>Em casos aonde só queremos um bundle por tipo de entidade, podemos dar a ele o mesmo nome que o tipo da entidade</li>
+            <li>Cada bundle pode ter fields e até compartilhá-los</li>
+            <li>Taxonomy Vocabulary é um tipo de entidade que só possui um bundle e não pode ter fields</li>
+            <li>Comment é um tipo de entidade que tem bundles criados automaticamente para cada tipo de conteúdo (tipo de Node)</li>
+            <li>Esta nomenclatura confusa será refeita no Drupal 8: <a href="http://drupal.org/node/1380720">http://drupal.org/node/1380720</a></li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="conceito-5" class="step slide" data-x="-6000" data-y="1000">
+        <div class="content">
+          <h1>Fields vs Propriedades</h1>
+
+          <p>Duas maneiras distintas de armazenar informações sobre uma entidade (ou instância de um tipo de entidade)</p>
+
+          <h3>Fields</h3>
+          <ul class="small">
+            <li>Altamente extensíveis</li>
+            <li>Representam um tipo de dado abstrato (Imagem, Endereço, Referência, etc.)</li>
+            <li>Possuem <b>widgets</b> para inserção de dados e <b>formatters</b> para exibição</li>
+          </ul>
+
+          <h3>Propriedades</h3>
+          <ul class="small">
+            <li>Dados simples</li>
+            <li>Representam tipos de dados primários (varchar, text, int, float, etc)</li>
+            <li>Não possuem widgets ou formatters</li>
+          </ul>
+
+          <h3><b>A escolha depende da sua necessidade!</b></h3>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="core" class="step slide" data-x="-7000" data-y="1000">
+        <div class="content">
+          <h2>Nem tudo é um mar de rosas...</h2>
+          <ul class="small">
+            <li>API do core é incompleta!</li>
+            <li>Por padrão possui apenas 1 método do CRUD: o <b>entity_load()</b></li>
+            <li>E aí, como faz pra criar ou salvar uma entidade mesmo?</li>
+          </ul>
+
+          <h2>... mas o contrib segura o B.O!</h2>
+          <ul class="small">
+            <li><b>Entity API</b> preenche as lacunas; entity_save(), metadados, <em>entity metadata wrappers</em></li>
+            <li>Forneçe controllers para tudo: Admin UI, Fields, Features, Views, Rules, etc.</li>
+            <li>Metatados facilitam ainda mais a integração, ex: Display Suite</li>
+            <li>Hooks a vonts</li>
+            <li><em>*Ainda não possui classes para os objetos do core</em></li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="metadata" class="step slide" data-x="-8000" data-y="1000">
+        <div class="content">
+          <h1>Metadados</h1>
+
+          <ul>
+            <li>Uma maneira de descrever as propriedades das suas entidades</li>
+            <li>Especifica callbacks de <em>get</em> e <em>set</em></li>
+            <li>Callbacks para listas</li>
+            <li>Usado pelo <b>Entity API</b> para integrar com <b>Views</b>, <b>Rules</b>, etc.</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="resumo-teoria" class="step slide" data-x="-1500" data-y="3000">
+        <div class="content">
+          <h1>Entenderam?</h1>
+
+          <h2>Sério?</h2>
+
+          <h2>Não tem nenhuma pergunta?</h2>
+
+          <div class="breather">
+            <h3>Antes de saber como criar uma entidade, vamos dar um passo para trás e entender porque vale a pena e quando devemos e não devemos usar entidades customizadas</h3>
+          </div>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="porque" class="step slide" data-x="-500" data-y="3000">
+        <div class="content">
+          <h1>Por que criar uma nova entidade</h1>
+          <h3>Lembram do hook_schema()?</h3>
+          <ul class="small">
+            <li>drupal_write_record() é legal</li>
+            <li>drupal_read_record() não existe<sup>*</sup></li>
+            <li>Fields e Hooks na marra</li>
+            <li>Integração manual com outros módulos</li>
+            <li>Ou isto ou usa um node</li>
+            <li>#tenso</li>
+          </ul>
+
+          <span class="footnote">* http://www.alexweber.com.br/en/articles/drupal-read-record</span>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="quando" class="step slide" data-x="500" data-y="3000">
+        <div class="content">
+          <h1>Segura a emoção!</h1>
+
+          <h3>Nem sempre é uma boa idéia criar uma nova entidade!</h3>
+          <ul>
+            <li>É relativamente complicado de implementar</li>
+            <li>Não é perfeito; algumas integrações requerem código custom</li>
+            <li>Tem um certo <em>overhead</em><sup>*</sup></li>
+          </ul>
+
+          <span class="footnote">* parcialmente contornado com o Entity Cache</span>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="quando-2" class="step slide" data-x="1500" data-y="3000">
+        <div class="content">
+          <h1>Segura a emoção!</h1>
+
+          <h3>Muitas coisas podem <b><em>sim</em></b> ser representadas com Nodes</h3>
+          <ul>
+            <li>É fácil de implementar</li>
+            <li>Tudo integrado</li>
+            <li>Tem um certo <em>overhead</em><sup>*</sup></li>
+          </ul>
+
+          <span class="footnote">* parcialmente contornado com o Entity Cache</span>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="quando-3" class="step slide" data-x="2500" data-y="3000">
+        <div class="content">
+          <h1>Segura a emoção!</h1>
+
+          <h3>Portanto, o hook_schema ainda é uma opção</h3>
+          <ul>
+            <li>As vezes só queremos armazenar algum dado simples</li>
+            <li>Nem sempre precisamos integrar com tudo</li>
+            <li>É a maneira mais leve</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="quando-4" class="step slide" data-x="3500" data-y="3000">
+        <div class="content">
+          <h1>Não existe uma regra clara</h1>
+          <h2>As vezes vale a pena, as vezes não!</h2>
+
+          <ul class="med">
+            <li>Se você já estava pensando em criar um schema</li>
+            <li>Se você precisa integrar com diversos componentes do Drupal</li>
+            <li>Se você quer aprender como fazer na prática</li>
+          </ul>
+
+          <div class="breather">
+            <h3>Pode ser uma boa idéia criar uma entidade customizada!</h3>
+          </div>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="exemplos" class="step slide" data-x="0" data-y="0">
+        <div class="content">
+          <h1>Exemplos</h1>
+
+          <ul>
+            <li>Produtos</li>
+            <li>Resultados (KPIs, placares, etc.)</li>
+            <li>Mensagens</li>
+            <li>Pagamentos</li>
+            <li>... a sua imaginação (ou a do cliente) é o limite!</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como" class="step slide" data-x="1000" data-y="0">
+        <div class="content">
+          <h1>Passos para criar uma entidade</h1>
+
+          <ul>
+            <li>1. Elaborar e implementar um schema</li>
+            <li>2. Implementar hook_entity_info()</li>
+            <li>3. Criar algumas classes</li>
+            <li>4. Criar alguns formulários</li>
+            <li>5. Criar alguns callbacks de menu</li>
+          </ul>
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-2" class="step slide" data-x="2000" data-y="0">
+        <div class="content">
+          <h2>1. Elaborar e implementar um schema</h2>
+          <h3>Antes de mais nada vamos definir a estrutura de dados:</h3>
+
+          <p>Não se apeguem demais ao exemplo, é meramente ilustrativo!</p>
+
+          <ul class="small">
+            <li>"Produto"; ID, SKU, Autor, Imagem, Descrição, Preço, Destacado</li>
+            <li>Fields: Imagem, Descrição, Preço</li>
+            <li>Propriedades: ID, SKU, Autor, Destacado</li>
+          </ul>
+
+          <h3>Tipos de produto (bundles)</h3>
+
+          <ul class="small">
+            <li>Camiseta</li>
+            <li>Calça</li>
+            <li>Livro</li>
+            <li>DVD, etc.</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-3" class="step slide code" data-x="3000" data-y="0">
+        <pre><code data-language="php">
+/**
+ * Implements hook_schema().
+ *
+ * Tipos de dados disponíveis: http://drupal.org/node/159605
+ */
+function produto_schema() {
+  $schema = array(
+    // Tabela de produto.
+    'produto' => array(
+      'description' => 'Armazena produtos.',
+      'fields' => array(
+        // Id único.
+        'pid' => array(
+          'type' => 'serial',
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique produto ID.'
+        ),
+        // Nome.
+        'title' => array(
+          'description' => 'O nome desde produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Tipo.
+        'type' => array(
+          'description' => 'O {produto_type}.name desde produto.',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Autor.
+        'uid' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => NULL,
+          'description' => "The {users}.uid of the associated user.",
+        ),
+        // SKU.
+        'sku' => array(
+          'description' => 'O SKU do produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+      ),
+      'indexes' => array(
+        'uid' => array('uid'),
+        'sku' => array('sku'),
+      ),
+      // Opcional, útil para documentação.
+      'foreign keys' => array(
+        'uid' => array(
+          'table' => 'users',
+          'columns' => array('uid' => 'uid'),
+        ),
+        'type' => array(
+          'table' => 'produto_type',
+          'columns' => array('type' => 'name'),
+        ),
+      ),
+      'primary key' => array('pid'),
+    ),
+
+    // Tabela de tipo de produto (bundle).
+    'produto_type' => array(
+      'description' => 'Armazena informações sobre tipos de produtos.',
+      'fields' => array(
+        // Chave primária.
+        'id' => array(
+          'type' => 'serial',
+          'not null' => TRUE,
+          'description' => 'Primary Key: Unique produto type ID.',
+        ),
+        // Machine name (slug).
+        'name' => array(
+          'description' => 'O nome "de máquina" do tipo de produto.',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+        ),
+        // Nome.
+        'label' => array(
+          'description' => 'O nome "humano" do tipo de produto.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        // Descrição.
+        'description' => array(
+          'description' => 'Uma breve descrição do tipo de produto.',
+          'type' => 'text',
+          'not null' => TRUE,
+          'size' => 'medium',
+          'translatable' => TRUE,
+        ),
+        // Campos padrão para exportar via Features.
+        'weight' => array(
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+          'size' => 'tiny',
+          'description' => 'O peso desde tipo de produto em relação aos demais.',
+        ),
+        // Dados serializados.
+        'data' => array(
+          'type' => 'text',
+          'not null' => FALSE,
+          'size' => 'big',
+          'serialize' => TRUE,
+          'description' => 'Um array de dados adicionais serializados.',
+        ),
+        // Status (padrão, sobrescrito).
+        'status' => array(
+          'type' => 'int',
+          'not null' => TRUE,
+          // Set the default to ENTITY_CUSTOM without using the constant as it is
+          // not safe to use it at this point.
+          'default' => 0x01,
+          'size' => 'tiny',
+          'description' => 'O status exportável deste tipo de produto.',
+        ),
+        // Módulo.
+        'module' => array(
+          'description' => 'O módulo que definiu este tipo, caso tenha sido por código.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'primary key' => array('id'),
+      'unique keys' => array(
+        'name' => array('name'),
+      ),
+    ),
+  );
+
+  // Suporte ao módulo EntityCache.
+  // Copiamos o schema da tabela de cache do core.
+  $schema['cache_entity_produto'] = drupal_get_schema_unprocessed('system', 'cache');
+  // Alteramos a descrição.
+  $schema['cache_entity_produto']['description'] = "Tabela de cache usada para produtos.";
+
+  return $schema;
+}
+        </code></pre>
+      </article>
+
+      <article id="como-4" class="step slide" data-x="4000" data-y="0">
+        <div class="content">
+          <h2>2. Implementar o hook_entity_info()</h2>
+
+          <ul class="huge">
+            <li>Aqui descrevemos a nossa entidade para o Drupal (e para o Entity API)</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-5" class="step slide code" data-x="1000" data-y="1000">
+        <pre><code data-language="php">
+/**
+ * Implements hook_entity_info().
+ */
+function produto_entity_info() {
+  $return = array();
+
+  // Tipo de entidade produto.
+  $return['produto_type'] = array(
+    'label' => t('Produto type'),
+    'plural label' => t('Produto types'),
+    'entity class' => 'ProdutoType',
+//    'controller class' => 'EntityAPIControllerExportable',
+//    'controller class' => 'EntityAPIController',
+    'controller class' => 'ProdutoTypeController',
+    'base table' => 'produto_type',
+    'fieldable' => FALSE,
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'name',
+      'label' => 'label',
+    ),
+    'bundles' => array(),
+    'bundle of' => 'produto',
+    'access callback' => 'produto_type_access',
+    'module' => 'produto',
+    // Habilita a interface administrativa do Entity API.
+    'admin ui' => array(
+      'path' => 'admin/structure/produtos',
+      'file' => 'produto.admin.inc',
+//      'controller class' => 'EntityDefaultUIController',
+      'controller class' => 'ProdutoTypeUIController',
+    ),
+  );
+
+  // Entidade produto.
+  $return['produto'] = array(
+    'label' => t('Produto'),
+    'plural label' => t('Produtos'),
+    'entity class' => 'Produto',
+//    'controller class' => 'EntityAPIController',
+    'controller class' => 'ProdutoController',
+    'base table' => 'produto',
+    'fieldable' => TRUE,
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'entity keys' => array(
+      'id' => 'pid',
+      'bundle' => 'type',
+      'label' => 'title',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'name',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'label callback' => 'entity_class_label',
+    'access callback' => 'produto_access',
+    'module' => 'produto',
+    'metadata controller class' => 'ProdutoMetadataController',
+    'views controller class' => 'ProdutoViewsController',
+  );
+
+  // Adiciona informações dos bundles, mas faz a consulta direta para evitar o
+  // entity_load() porque não podemos usá-lo aqui.
+  $produto_types = db_select('produto_type', 'st')
+    ->fields('st')
+    ->execute()
+    ->fetchAllAssoc('name');
+
+  foreach ($produto_types as $type_name => $type) {
+    $return['produto']['bundles'][$type_name] = array(
+      'label' => $type->label,
+      'description' => $type->description,
+      'admin' => array(
+        'path' => 'admin/structure/produtos/manage/%produto_type',
+        'real path' => 'admin/structure/produtos/manage/' . $type->name,
+        'bundle argument' => 4,
+        'access arguments' => array('administer produto types'),
+      ),
+    );
+  }
+
+  // Suporte ao módulo Locale.
+  if (module_exists('locale')) {
+    $return['produto_type']['translation']['locale'] = TRUE;
+  }
+
+  // Suporte ao módulo Entity Cache.
+  if (module_exists('entitycache')) {
+    $return['produto']['entity cache'] = TRUE;
+    // O Entity Cache torna o cache de fields obsoleto.
+    $return['produto']['field cache'] = FALSE;
+  }
+
+  return $return;
+}
+        </code></pre>
+      </article>
+
+      <article id="como-6" class="step slide" data-x="2000" data-y="1000">
+        <div class="content">
+          <h2>3. Criar algumas classes</h2>
+
+          <ul class="med">
+            <li>No mínimo precisamos criar uma classe para a nossa entidade e o tipo de entidade</li>
+            <li>Podemos estender os controllers para ter maior controle</li>
+            <li>Podemos estender a classe de Metadados para complementar as informações</li>
+            <li>Podemos estender a classe de Views para adicionar mais campos</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-7" class="step slide code" data-x="3000" data-y="1000">
+        <pre><code data-language="php">
+/**
+ * @file
+ * Classes das entidades do módulo Produto.
+ */
+
+/**
+ * Controller de UI da entidade Produto Type.
+ */
+class ProdutoTypeUIController extends EntityDefaultUIController {
+
+  /**
+   * Complementa o hook_menu() padrão.
+   */
+  public function hook_menu() {
+    $items = parent::hook_menu();
+    $items[$this->path]['description'] = 'Gerenciar tipos de produtos, inclusive fields.';
+    return $items;
+  }
+
+}
+
+/**
+ * Controller de classe da entidade Produto Type.
+ */
+class ProdutoTypeController extends EntityAPIControllerExportable {
+
+}
+
+/**
+ * Controller de classe da entidade Produto.
+ */
+class ProdutoController extends EntityAPIController {
+
+  /**
+   * Adiciona as propriedades da entidade ao display.
+   */
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    // Autor.
+    $user = user_load($entity->uid);
+    $content['uid'] = array(
+      '#theme' => 'field',
+      '#title' => t('Autor'),
+      '#access' => TRUE,
+      '#label_display' => 'inline',
+      '#view_mode' => $view_mode,
+      '#language' => LANGUAGE_NONE,
+      '#field_name' => 'field_fake_description',
+      '#field_type' => 'text',
+      '#entity_type' => 'produto',
+      '#bundle' => $entity->type,
+      '#items' => array(array('value' => $entity->uid)),
+      '#formatter' => 'text_default',
+      0 => array('#markup' => l($user->name, 'user/' . $entity->uid)),
+    );
+
+    // SKU.
+    $content['sku'] = array(
+      '#theme' => 'field',
+      '#title' => t('SKU'),
+      '#access' => TRUE,
+      '#label_display' => 'inline',
+      '#view_mode' => $view_mode,
+      '#language' => LANGUAGE_NONE,
+      '#field_name' => 'field_fake_description',
+      '#field_type' => 'text',
+      '#entity_type' => 'produto',
+      '#bundle' => $entity->type,
+      '#items' => array(array('value' => $entity->sku)),
+      '#formatter' => 'text_default',
+      0 => array('#markup' => $entity->sku),
+    );
+
+    return parent::buildContent($entity, $view_mode, $langcode, $content);
+  }
+
+}
+
+/**
+ * Classe para a entidade Produto Type.
+ */
+class ProdutoType extends Entity {
+
+  public $name;
+  public $label;
+  public $weight = 0;
+
+  public function __construct($values = array()) {
+    parent::__construct($values, 'produto_type');
+  }
+
+  /**
+   * Retorna se esta entidade está "trancada" e, portanto, não consegue ser
+   * excluída ou renomeada. Tipos de entidade que são fornecidas no código são
+   * tratadas como trancadas.
+   */
+  public function isLocked() {
+    return isset($this->status) && empty($this->is_new) && (($this->status & ENTITY_IN_CODE) || ($this->status & ENTITY_FIXED));
+  }
+
+}
+
+/**
+ * Classe para a entidade Produto.
+ */
+class Produto extends Entity {
+
+  /**
+   * O id do produto.
+   *
+   * @var integer
+   */
+  public $pid;
+
+  /**
+   * O nome do produto.
+   *
+   * @var string
+   */
+  public $title;
+
+  /**
+   * O tipo do produto.
+   *
+   * @var string
+   */
+  public $type;
+
+  /**
+   * O id do autor.
+   *
+   * @var integer
+   */
+  public $uid;
+
+  public function __construct($values = array()) {
+    if (isset($values['type'])) {
+      if ($values['type'] instanceof ProdutoType) {
+        $values['type'] = $values['type']->name;
+      }
+      else {
+        $values['type'] = $values['type'];
+      }
+    }
+
+    if (!isset($values['uid'])) {
+      $user = user_uid_optional_load();
+      $values['uid'] = $user->uid;
+    }
+
+    parent::__construct($values, 'produto');
+  }
+
+  /**
+   * Returns the full url() for the produto.
+   */
+  public function url() {
+    $uri = $this->uri();
+    return url($uri['path'], $uri);
+  }
+
+  /**
+   * Returns the drupal path to this produto.
+   */
+  public function path() {
+    $uri = $this->uri();
+    return $uri['path'];
+  }
+
+  protected function defaultUri() {
+    return array(
+      'path' => 'produto/' . $this->pid,
+    );
+  }
+
+}
+
+/**
+ * Controller de metadados para a entidade Produto.
+ */
+class ProdutoMetadataController extends EntityDefaultMetadataController {
+
+  public function entityPropertyInfo() {
+    $info = parent::entityPropertyInfo();
+    $properties = &$info[$this->type]['properties'];
+
+    // Complementa a propriedade "type".
+    $properties['type'] = array(
+      'type' => 'produto_type',
+      'setter permission' => 'administer produto',
+      'required' => TRUE,
+      'description' => t('O tipo de Produto.'),
+    ) + $properties['type'];
+
+    // Substitui a propriedade "uid" com um relacionamento à entidade do usuário.
+    $properties['uid'] = array(
+      'label' => t('User'),
+      'type' => 'user',
+      'description' => t('O autor do produto.'),
+      'setter callback' => 'entity_property_verbatim_set',
+      'setter permission' => 'administer produto',
+      'required' => TRUE,
+      'schema field' => 'uid',
+    );
+
+    return $info;
+  }
+}
+        </code></pre>
+      </article>
+
+      <article id="como-8" class="step slide" data-x="4000" data-y="1000">
+        <div class="content">
+          <h2>4. Criar alguns formulários</h2>
+
+          <ul class="med">
+            <li>Precisamos criar na mão os formulários para criação do tipo de entidade e também para a própria entidade</li>
+            <li>Precisamos criar callbacks de validação, exclusão e para salvar entidades</li>
+            <li>Os campos adicionados pelo Field UI são inclusos automaticamente com uma chamada de função</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-9" class="step slide code" data-x="5000" data-y="1000">
+        <pre><code data-language="php">
+
+### FORMULARIOS DE TIPO DE ENTIDADE E CALLBACKS RELACIONADOS ###
+
+/**
+ * Form callback.
+ * Generates the produto type edit form.
+ */
+function produto_type_form($form, &$form_state, $produto_type, $op = 'edit') {
+  // Armazena a entidade no $form_state para que possa ser alterada facilmente.
+  $form_state['produto_type'] = $produto_type;
+
+  if ($op == 'clone') {
+    $produto_type->label .= ' (cloned)';
+    $produto_type->name = '';
+  }
+
+  $form['label'] = array(
+    '#title' => t('Label'),
+    '#type' => 'textfield',
+    '#default_value' => $produto_type->label,
+    '#description' => t('O nome "humano" deste tipo de produto.'),
+    '#required' => TRUE,
+    '#size' => 30,
+    '#weight' => 0,
+  );
+
+  // Machine-readable type name.
+  $form['name'] = array(
+    '#type' => 'machine_name',
+    '#default_value' => isset($produto_type->name) ? $produto_type->name
+        : '',
+    '#maxlength' => 32,
+    '#disabled' => $produto_type->isLocked() && $op != 'clone',
+    '#machine_name' => array(
+      'exists' => 'produto_get_types',
+      'source' => array('label'),
+    ),
+    '#description' => t('O nome "de máquina" único do tipo de produto. Deve conter apenas letras em caixa baixa, números e underscores.'),
+    '#weight' => 1,
+  );
+
+  $form['description'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#default_value' => isset($produto_type->description) ? $produto_type->description
+        : '',
+    '#description' => t('Uma breve descrição deste tipo de produto.'),
+    '#weight' => 6,
+  );
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Salvar tipo de produto'),
+    '#weight' => 40,
+  );
+
+  if (!$produto_type->isLocked() && $op != 'add' && $op != 'clone') {
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Excluir tipo de produto'),
+      '#weight' => 45,
+      '#limit_validation_errors' => array(),
+      '#submit' => array('produto_type_form_submit_delete')
+    );
+  }
+  return $form;
+}
+
+/**
+ * Callback de validação.
+ * Valida entidades "tipo de produto".
+ *
+ * @see produto_type_form()
+ */
+function produto_type_form_validate(&$form, &$form_state) {
+  // @TODO inserir sua validação customizada aqui.
+}
+
+/**
+ * Callback de submit.
+ * Salva tipos de produto.
+ *
+ * @see produto_type_form()
+ */
+function produto_type_form_submit(&$form, &$form_state) {
+  $produto_type = entity_ui_form_submit_build_entity($form, $form_state);
+  if (produto_type_save($produto_type)) {
+    if ($form_state['op'] === 'edit') {
+      drupal_set_message(t('Tipo de produto %label salvado.', array('%label' => $produto_type->getTranslation('label'))));
+    }
+    elseif ($form_state['op'] === 'add') {
+      drupal_set_message(t('Tipo de produto %label criado.', array('%label' => $produto_type->getTranslation('label'))));
+    }
+  }
+  else {
+    drupal_set_message(t('Ocorreu um erro ao salvar o tipo de produto %label.', array('%label' => $produto_type->getTranslation('label'))), 'error');
+  }
+
+  $form_state['redirect'] = 'admin/structure/produtos';
+}
+
+/**
+ * Callback de submit.
+ * Exclui tipos de produto.
+ *
+ * @see produto_type_form()
+ */
+function produto_type_form_submit_delete(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/structure/produtos/manage/' . $form_state['produto_type']->name . '/delete';
+}
+
+### FORM DE ENTIDADE E PAGINAS RELACIONADAS ###
+
+/**
+ * Callback de página.
+ * Mostra uma tela para selecionar o tipo de produto a ser criado.
+ *
+ * @see produto_menu()
+ */
+function produto_add_page() {
+  $item = menu_get_item();
+  $content = system_admin_menu_block($item);
+  $count = count($content);
+
+  // Pula esta tela se só existe um tipo de produto.
+  if ($count == 1) {
+    $item = array_shift($content);
+    drupal_goto($item['href']);
+  }
+  // Mostra aviso se não houver nenhum tipo de produto.
+  elseif ($count === 0) {
+    return t("Você ainda não criou nenhum !types!", array('!types' => l(t('Tipo de Produto'), 'admin/structure/produtos')));
+  }
+
+  return theme('node_add_list', array('content' => $content));
+}
+
+/**
+ * Callback de página.
+ * Mostra o formulário de criação de um produto de certo tipo.
+ *
+ * @see produto_menu()
+ */
+function produto_add($type) {
+  $produto_type = produto_get_types($type);
+  $produto = entity_create('produto', array('type' => $type));
+
+  // Verifica se o usuário tem acesso.
+  if (!produto_access('create', $produto)) {
+    drupal_set_message(t("Você não tem permissão para realizar esta operação."), 'error', FALSE);
+    drupal_access_denied();
+    exit;
+  }
+
+  drupal_set_title(t('Criar Produto: @name', array('@name' => $produto_type->getTranslation('label'))));
+  $output = drupal_get_form('produto_form', $produto);
+  return $output;
+}
+
+/**
+ * Callback de formulário.
+ * Retorna o formulário de edição de produtos.
+ *
+ * @see produto_menu()
+ */
+function produto_form($form, &$form_state, $produto) {
+  $form_state['produto'] = $produto;
+  $pid = entity_id('produto', $produto);
+
+  // Campo de título.
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Nome'),
+    '#default_value' => isset($produto->title) ? $produto->title : '',
+    '#required' => TRUE,
+  );
+
+  // Campo de SKU.
+  $form['sku'] = array(
+    '#type' => 'textfield',
+    '#title' => t('SKU'),
+    '#default_value' => isset($produto->sku) ? $produto->sku : '',
+    '#required' => TRUE,
+  );
+
+  // Adiciona os fields.
+  field_attach_form('produto', $produto, $form, $form_state);
+
+  $submit = array();
+  if (!empty($form['#submit'])) {
+    $submit += $form['#submit'];
+  }
+
+  $form['actions'] = array(
+    '#weight' => 100,
+  );
+
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Salvar produto'),
+    '#submit' => $submit + array('produto_form_submit'),
+  );
+
+  // Mostra o botão de excluir se o produto existir e se tiermos permissão.
+  if (!empty($pid) && produto_access('delete', $produto)) {
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Excluir produto'),
+      '#limit_validation_errors' => array(),
+      '#submit' => array('produto_form_submit_delete'),
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Callback de validação.
+ *
+ * @see produto_form()
+ */
+function produto_form_validate(&$form, &$form_state) {
+  $produto = $form_state['produto'];
+  $values = & $form_state['values'];
+
+  // @TODO validar os dados.
+}
+
+/**
+ * Callback de submit.
+ * Salva um produto.
+ *
+ * @see produto_form()
+ */
+function produto_form_submit(&$form, &$form_state) {
+  $produto = $form_state['produto'];
+
+  // Constrói a entidade.
+  entity_form_submit_build_entity('produto', $produto, $form, $form_state);
+
+  // Salva ela.
+  produto_save($produto);
+
+  // Redireciona para ela.
+  $produto_uri = entity_uri('produto', $produto);
+  $form_state['redirect'] = $produto_uri['path'];
+
+  // Mostra mensagem de sucesso.
+  drupal_set_message(t('Produto: %title salvado.', array('%title' => entity_label('produto', $produto))));
+}
+
+/**
+ * Callback de submit.
+ * Redireciona para a tela de confirmação de exclusão de produto.
+ *
+ * @see produto_form()
+ */
+function produto_form_submit_delete($form, &$form_state) {
+  $produto = $form_state['produto'];
+  $produto_uri = entity_uri('produto', $produto);
+  $redirect_path = $produto_uri['path'] . '/delete';
+  $form_state['redirect'] = $redirect_path;
+}
+
+/**
+ * Callback de formulário.
+ * Retorna o formulário de confirmação de exclusão de produto.
+ *
+ * @see produto_menu()
+ */
+function produto_delete_form($form, &$form_state, $produto) {
+  $form_state['produto'] = $produto;
+
+  // Sempre fornecemos o id da entidade com a mesma chave que no form de edição.
+  $form['pid'] = array('#type' => 'value', '#value' => entity_id('produto', $produto));
+  $produto_uri = entity_uri('produto', $produto);
+  return confirm_form($form, t('Você tem certeza que deseja excluir o produto: %title?', array('%title' => entity_label('produto', $produto))), $produto_uri['path'], t('Esta ação não pode ser desfeita.'), t('Excluir'), t('Cancelar'));
+}
+
+/**
+ * Callback de submit.
+ * Exclui um produto.
+ *
+ * @see produto_delete_form()
+ */
+function produto_delete_form_submit($form, &$form_state) {
+  $produto = $form_state['produto'];
+
+  // Exclui o produto.
+  produto_delete($produto);
+
+  // Redireciona para a listagem de produtos.
+  $form_state['redirect'] = 'admin/content/produto';
+
+  // Mostra mensagem de sucesso.
+  drupal_set_message(t('Produto: %title excluído.', array('%title' => entity_label('produto', $produto))));
+}
+
+        </code></pre>
+      </article>
+
+      <article id="como-10" class="step slide" data-x="6000" data-y="1000">
+        <div class="content">
+          <h2>5. Criar alguns callbacks de menu</h2>
+
+          <ul class="med">
+            <li>Precisamos criar alguns callbacks para o formulário de criar/editar/excluir</li>
+            <li>Precisamos criar um callback para ver a entidade</li>
+            <li>Precisamos criar alguns callbacks de acesso e para operações simples</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="como-11" class="step slide code" data-x="1000" data-y="2000">
+        <pre><code data-language="php">
+/**
+ * Implements hook_permission().
+ */
+function produto_permission() {
+  // Permissões genéricas.
+  $permissions = array(
+    'administer produto' => array(
+      'title' => t('Administrar produtos'),
+    ),
+    // OBS - esta permissão é genérica e somente deixa chegar na tela de
+    // seleção de tipo de produto para criação.
+    'create produto' => array(
+      'title' => t('Criar produtos'),
+    ),
+    'administer produto types' => array(
+      'title' => t('Administrar tipos de produtos.'),
+    ),
+  );
+
+  // Permissões por tipo de produto.
+  foreach (produto_get_types() as $type) {
+    $type_name = check_plain($type->name);
+    $permissions += array(
+      "create $type_name produto" => array(
+        'title' => t('%type_name: Create produtos', array('%type_name' => $type->label)),
+      ),
+      "edit own $type_name produto" => array(
+        'title' => t('%type_name: Edit own produtos', array('%type_name' => $type->label)),
+      ),
+      "edit any $type_name produto" => array(
+        'title' => t('%type_name: Edit any produto', array('%type_name' => $type->label)),
+      ),
+      "delete own $type_name produto" => array(
+        'title' => t('%type_name: Delete own produtos', array('%type_name' => $type->label)),
+      ),
+      "delete any $type_name produto" => array(
+        'title' => t('%type_name: Delete any produto', array('%type_name' => $type->label)),
+      ),
+      "view own $type_name produto" => array(
+        'title' => t('%type_name: View own produtos', array('%type_name' => $type->label)),
+      ),
+      "view any $type_name produto" => array(
+        'title' => t('%type_name: View any produto', array('%type_name' => $type->label)),
+      ),
+    );
+  }
+  return $permissions;
+}
+
+/**
+ * Determina se um usuário tem acesso a uma operação de tipo de produto.
+ *
+ * @param string
+ *   A operação sendo realizada. Um de 'view', 'update', 'create', 'delete' ou
+ *   simplesmente 'edit' (equivalente a 'create' ou 'update'). Neste caso, não
+ *   usamos nenhuma destas porque usamos uma permissão global para gerenciar
+ *   tipos de produtos.
+ * @param ProdutoType
+ *   Um tipo de produto específico para verificar o acesso.  Se não for
+ *   fornecido, verificamos de uma maneira global para todos tipos.
+ * @param stdClass
+ *   Um objeto de usuário específico para verificar acesso. Se não for
+ *   fornecido, verificamos para o usuário atual.
+ *
+ * @return boolean
+ *   Se o usuário tem ou não acesso.
+ */
+function produto_type_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer produto types', $account);
+}
+
+/**
+ * Determina se um usuário tem acesso a uma operação de Produto.
+ *
+ * @param string
+ *   A operação sendo realizada. Um de 'view', 'update', 'create', 'delete' ou
+ *   simplesmente 'edit' (equivalente a 'create' ou 'update').
+ * @param Produto
+ *   Um produto específico para verificar o acesso.  Se não for fornecido,
+ *   verificamos de uma maneira global para todos produtos.
+ * @param stdClass
+ *   Um objeto de usuário específico para verificar acesso. Se não for
+ *   fornecido, verificamos para o usuário atual.
+ *
+ * @return boolean
+ *   Se o usuário tem ou não acesso.
+ *
+ * @see hook_produto_access()
+ * @see produto_produto_access()
+ */
+function produto_access($op, $produto = NULL, $account = NULL) {
+  if (user_access('administer produto', $account)) {
+    return TRUE;
+  }
+
+  // Permite que módulos terceiros permitam/neguem o acesso.
+  $access = module_invoke_all('produto_access', $op, $produto, $account);
+
+  // Somente permitimos acesso se pelo menos um módulo permitiu o acesso e
+  // nenhum outro o negou.
+  if (in_array(FALSE, $access, TRUE)) {
+    return FALSE;
+  }
+  elseif (in_array(TRUE, $access, TRUE)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_produto_access().
+ */
+function produto_produto_access($op, $produto = NULL, $account = NULL) {
+  // @TODO inserimos aqui nossa lógica específica para permissões por tipo
+  // de produto e diferentes operações definidas no hook_permission().
+
+  // Para simplificar, retornamos sempre TRUE aqui. Não faça isto em casa!
+  return TRUE;
+}
+
+/**
+ * Retorna um array com todos os tipos de produto, chaveados pelo nome.
+ *
+ * @param $type_name
+ *   Se fornecido, retorna apenas um tipo específico.
+ * @return produtoType[]
+ *   Dependendo do $type_name, ou um tipo específico de produto ou um array
+ *   com todos os tipos.
+ */
+function produto_get_types($type_name = NULL) {
+  $produto_types = &drupal_static(__FUNCTION__);
+
+  if (empty($produto_types)) {
+    $produto_types = entity_load_multiple_by_name('produto_type', FALSE);
+  }
+
+  if (isset($type_name)) {
+    return isset($produto_types[$type_name]) ? $produto_types[$type_name] : FALSE;
+  }
+  else {
+    return $produto_types;
+  }
+}
+
+/**
+ * Salva um tipo de produto.
+ *
+ * @param $type
+ *   O objeto do tipo de produto.
+ * @return boolean
+ *   Se o tipo foi salvo com êxito.
+ */
+function produto_type_save(ProdutoType $type) {
+  return $type->save();
+}
+
+/**
+ * Loader de argumento de menu; carrega um objeto de tipo de produto por nome
+ * de máquina.
+ *
+ * @param $type
+ *   O nome de máquina do tipo de produto.
+ * @return ProdutoType|FALSE
+ *   O objeto do tipo de produto ou FALSE se o tipo não existe.
+ */
+function produto_type_load($type) {
+  return produto_get_types($type);
+}
+
+/**
+ * Exclui um tipo de produto.
+ *
+ * @param $type
+ *   O objeto do tipo de produto.
+ */
+function produto_type_delete(ProdutoType $type) {
+  $type->delete();
+}
+
+/**
+ * Salva um produto.
+ *
+ * @param Produto
+ *   O objeto do Produto.
+ * @return boolean
+ *   Se o produto foi salvo com êxito.
+ */
+function produto_save(Produto $produto) {
+  return $produto->save();
+}
+
+/**
+ * Carrega um produto.
+ *
+ * @param integer
+ *   O id do produto.
+ * @param boolean
+ *   Uma flag indicando se desejamos pular o cache.
+ * @return Produto|FALSE
+ *   Um objeto Produto ou FALSE se ocorreu algum erro.
+ *
+ * @see produto_load_multiple()
+ */
+function produto_load($pid, $reset = FALSE) {
+  $produtos = produto_load_multiple(array($pid), array(), $reset);
+  return reset($produtos);
+}
+
+/**
+ * Carrega múltiplos produtos baseados em certas condições.
+ *
+ * @param integer
+ *   Um array de ids de produto.
+ * @param array
+ *   Condições para verificar contra a tabela {produto}.
+ * @param boolean
+     Uma flag indicando se desejamos pular o cache.
+ * @return array|FALSE
+ *   Um array de objetos Produto, chaveado pelo id ou FALSE se nenhum foi
+ *   localizado.
+ *
+ * @see entity_load()
+ * @see produto_load()
+ * @see produto_load_by_user()
+ */
+function produto_load_multiple($pids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('produto', $pids, $conditions, $reset);
+}
+
+/**
+ * Exclui um produto.
+ *
+ * @param Produto
+ *   O objeto Produto que desejamos excluir.
+ */
+function produto_delete(Produto $produto) {
+  $produto->delete();
+}
+
+/**
+ * Cria um novo objeto do tipo Produto.
+ *
+ * @param array
+ *   Um array de valores para inicializar o objeto.
+ * @return Produto
+ *   Um objeto do tipo Produto.
+ */
+function produto_create(array $values) {
+  return new Produto($values);
+}
+
+/**
+ * Callback de página.
+ * Mostra uma entidade produto.
+ *
+ * Isto está aqui em vez de no "produto.pages.inc" porque se o Devel estiver
+ * habilitado e o usuário clicar no Devel->render teremos um erro porque
+ * aquele include não será carregado automaticamente.
+ *
+ * @param Produto
+ *   O produto que desejamos ver.
+ * @return string
+ *   A entidade de produto renderizada.
+ *
+ * @see produto_menu()
+ */
+function produto_view(Produto $produto) {
+  drupal_set_title(entity_label('produto', $produto));
+  return entity_view('produto', array(entity_id('produto', $produto) => $produto), 'full');
+}
+
+/**
+ * Callback de título de menu.
+ * Retorna o título da página para um determinado produto.
+ *
+ * @param Produto
+ *   O produto.
+ * @return string
+ *   O nome do produto.
+ *
+ * @see produto_menu()
+ */
+function produto_page_title(Produto $produto) {
+  return $produto->label();
+}
+
+/**
+ * Implements hook_menu().
+ */
+function produto_menu() {
+  $items = array();
+
+  // Página de administração de produtos.
+  // Para este exemplo vamos usar Views! :)
+//  $items['admin/content/produto'] = array(
+//    'title' => 'Produtos',
+//    'page callback' => 'produto_list',
+//    'access arguments' => array('administer produto'),
+//    'file' => 'produto.admin.inc',
+//    'type' => MENU_LOCAL_TASK,
+//  );
+
+  // Página de criação de produto.
+  $items['produto/add'] = array(
+    'title' => 'Criar produto',
+    'page callback' => 'produto_add_page',
+    'access arguments' => array('create produto'),
+    'file' => 'produto.pages.inc',
+  );
+
+  // Local action para adicionar produto na página de listagem.
+  $items['admin/content/produto/add'] = array(
+    'title' => 'Criar produto',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('produto/add'),
+    'access arguments' => array('create produto'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  // Formulários específicos para adicionar cada tipo de produto.
+  foreach (produto_get_types() as $type => $info) {
+    $items['produto/add/' . $type] = array(
+      'title' => $info->getTranslation('label'),
+      'description' => isset($info->description) ? $info->description : '',
+      'page callback' => 'produto_add',
+      'page arguments' => array(2),
+      'access callback' => 'entity_access',
+      'access arguments' => array('create', 'produto', $type),
+      'file' => 'produto.pages.inc',
+    );
+  }
+
+  // Para conveniência.
+  $produto_uri = 'produto/%produto';
+  $produto_uri_argument_position = 1;
+
+  // Ver produto.
+  $items[$produto_uri] = array(
+    'title callback' => 'produto_page_title',
+    'title arguments' => array($produto_uri_argument_position),
+    'page callback' => 'produto_view',
+    'page arguments' => array($produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('view', 'produto', $produto_uri_argument_position),
+  );
+
+  $items[$produto_uri . '/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Editar produto.
+  $items[$produto_uri . '/edit'] = array(
+    'title' => 'Editar',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('produto_form', $produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'produto', $produto_uri_argument_position),
+    'file' => 'produto.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  // Excluir produto.
+  $items[$produto_uri . '/delete'] = array(
+    'title' => 'Excluir produto',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('produto_delete_form', $produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'produto', $produto_uri_argument_position),
+    'file' => 'produto.pages.inc',
+  );
+
+  // Integração com o Devel.
+  if (module_exists('devel')) {
+    $devel_path = drupal_get_path('module', 'devel');
+    $items[$produto_uri . '/devel'] = array(
+      'title' => 'Devel',
+      'page callback' => 'devel_load_object',
+      'file' => 'devel.pages.inc',
+      'file path' => $devel_path,
+      'page arguments' => array('produto', $produto_uri_argument_position),
+      'access arguments' => array('access devel information'),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 100,
+    );
+
+    $items[$produto_uri . '/devel/load'] = array(
+      'title' => 'Load',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+    );
+
+    $items[$produto_uri . '/devel/render'] = array(
+      'title' => 'Render',
+      'page callback' => 'devel_render_object',
+      'page arguments' => array('produto', $produto_uri_argument_position),
+      'access arguments' => array('access devel information'),
+      'file' => 'devel.pages.inc',
+      'file path' => $devel_path,
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 100,
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function produto_admin_paths() {
+  $paths = array(
+    'produto/add' => TRUE,
+    'produto/add/*' => TRUE,
+    'produto/*/edit' => TRUE,
+    'produto/*/delete' => TRUE,
+  );
+  return $paths;
+}
+        </code></pre>
+      </article>
+
+      <article id="wrapup-1" class="step slide" data-x="2000" data-y="2000">
+        <div class="content">
+          <h1>Decoraram tudo? :)</h1>
+
+          <h2>Perguntas?</h2>
+
+          <ul>
+            <li>Este foi só um exemplo simples...</li>
+            <li>Na prática você provavelmente irá customizar mais coisas...</li>
+            <li>O código-fonte está disponível no GitHub: <a href="https://github.com/alexweber/drupalcamp-rio-2">https://github.com/alexweber/drupalcamp-rio-2</a></li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="wrapup-2" class="step slide" data-x="3000" data-y="2000">
+        <div class="content">
+          <h1>Considerações Finais</h1>
+
+          <h2>Alguns módulos interessantes:</h2>
+
+          <ul class="med">
+            <li>Entity Construction Kit: <a href="http://drupal.org/project/eck">http://drupal.org/project/eck</a></li>
+            <li>Model Entities: <a href="http://drupal.org/project/model">http://drupal.org/project/model</a></li>
+          </ul>
+
+          <div class="breather">
+
+          <h2>E quando tiver alguma dúvida...</h2>
+
+          <ul class="med">
+            <li>RTFM: <a href="http://drupal.org/node/878784">http://drupal.org/node/878784</a></li>
+          </ul>
+
+          </div>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="wrapup-3" class="step slide" data-x="4000" data-y="2000">
+        <div class="content">
+          <h1>Valeu!</h1>
+
+          <h2>Espero que tenha sido útil!</h2>
+
+          <ul>
+            <li>Tá esperando o que?</li>
+            <li>Vai criar uma entidade rapá!</li>
+          </ul>
+
+        </div>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+          <div class="footer-date">Drupalcamp Rio 2 - 10/11/2012</div>
+        </footer>
+      </article>
+
+      <article id="titulo-saidera" class="step slide" data-x="5000" data-y="2000">
+        <h1>Dominando as Entidades no Drupal 7</h1>
+
+        <img class="drupal-brasil-logo" src="images/druplicon-brasil.png" />
+
+        <h2>Drupalcamp Rio 2 - 10/11/2012</h2>
+
+        <footer>
+          <div class="branding"><img class="brand-img" src="images/aw.png" /><span class="brand-txt">alexweber.com.br</span></div>
+        </footer>
+      </article>
 
       <!-- Página final de resumo. -->
-      <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
-      </div>
+      <article id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+      </article>
 
     </div>
 
 
-
-    <!-- O Fim. -->
+    <!-- Dica de navegação. -->
     <div class="hint">
       <p>Use a barra de espaço ou setas para navegar</p>
     </div>
-    <script>
-      if ("ontouchstart" in document.documentElement) {
-        document.querySelector(".hint").innerHTML = "<p>Use os botões de seta para a direita e esquerda para navegar</p>";
-      }
-    </script>
-    <script src="impress.js"></script>
-    <script>impress().init();</script>
 
-  </div>
-</body>
+    <footer>
+      Alex Weber - alexweber.com.br
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Dica de navegação diferente para dispositívos móveis.
+      if ("ontouchstart" in document.documentElement) {
+        document.querySelector(".hint").innerHTML = "<p>Aperte no lado direito ou esquerdo para navegar</p>";
+      }
+
+      // Adiciona rodapé aos slides.
+      // @TODO
+    </script>
+    <script src="js/impress.js"></script>
+    <script>impress().init();</script>
+    <script src="js/rainbow-custom.min.js"></script>
+  </body>
 </html>

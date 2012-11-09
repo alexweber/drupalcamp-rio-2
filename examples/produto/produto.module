@@ -1,0 +1,528 @@
+<?php
+/**
+ * @file
+ * Módulo Produto.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function produto_entity_info() {
+  $return = array();
+
+  // Tipo de entidade produto.
+  $return['produto_type'] = array(
+    'label' => t('Produto type'),
+    'plural label' => t('Produto types'),
+    'entity class' => 'ProdutoType',
+//    'controller class' => 'EntityAPIControllerExportable',
+//    'controller class' => 'EntityAPIController',
+    'controller class' => 'ProdutoTypeController',
+    'base table' => 'produto_type',
+    'fieldable' => FALSE,
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'name',
+      'label' => 'label',
+    ),
+    'bundles' => array(),
+    'bundle of' => 'produto',
+    'access callback' => 'produto_type_access',
+    'module' => 'produto',
+    // Habilita a interface administrativa do Entity API.
+    'admin ui' => array(
+      'path' => 'admin/structure/produtos',
+      'file' => 'produto.admin.inc',
+//      'controller class' => 'EntityDefaultUIController',
+      'controller class' => 'ProdutoTypeUIController',
+    ),
+  );
+
+  // Entidade produto.
+  $return['produto'] = array(
+    'label' => t('Produto'),
+    'plural label' => t('Produtos'),
+    'entity class' => 'Produto',
+//    'controller class' => 'EntityAPIController',
+    'controller class' => 'ProdutoController',
+    'base table' => 'produto',
+    'fieldable' => TRUE,
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'entity keys' => array(
+      'id' => 'pid',
+      'bundle' => 'type',
+      'label' => 'title',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'name',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'label callback' => 'entity_class_label',
+    'access callback' => 'produto_access',
+    'module' => 'produto',
+    'metadata controller class' => 'ProdutoMetadataController',
+    'views controller class' => 'ProdutoViewsController',
+  );
+
+  // Adiciona informações dos bundles, mas faz a consulta direta para evitar o
+  // entity_load() porque não podemos usá-lo aqui.
+  $produto_types = db_select('produto_type', 'st')
+    ->fields('st')
+    ->execute()
+    ->fetchAllAssoc('name');
+
+  foreach ($produto_types as $type_name => $type) {
+    $return['produto']['bundles'][$type_name] = array(
+      'label' => $type->label,
+      'description' => $type->description,
+      'admin' => array(
+        'path' => 'admin/structure/produtos/manage/%produto_type',
+        'real path' => 'admin/structure/produtos/manage/' . $type->name,
+        'bundle argument' => 4,
+        'access arguments' => array('administer produto types'),
+      ),
+    );
+  }
+
+  // Suporte ao módulo Locale.
+  if (module_exists('locale')) {
+    $return['produto_type']['translation']['locale'] = TRUE;
+  }
+
+  // Suporte ao módulo Entity Cache.
+  if (module_exists('entitycache')) {
+    $return['produto']['entity cache'] = TRUE;
+    // O Entity Cache torna o cache de fields obsoleto.
+    $return['produto']['field cache'] = FALSE;
+  }
+
+  return $return;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function produto_admin_paths() {
+  $paths = array(
+    'produto/add' => TRUE,
+    'produto/add/*' => TRUE,
+    'produto/*/edit' => TRUE,
+    'produto/*/delete' => TRUE,
+  );
+  return $paths;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function produto_permission() {
+  // Permissões genéricas.
+  $permissions = array(
+    'administer produto' => array(
+      'title' => t('Administrar produtos'),
+    ),
+    // OBS - esta permissão é genérica e somente deixa chegar na tela de
+    // seleção de tipo de produto para criação.
+    'create produto' => array(
+      'title' => t('Criar produtos'),
+    ),
+    'administer produto types' => array(
+      'title' => t('Administrar tipos de produtos.'),
+    ),
+  );
+
+  // Permissões por tipo de produto.
+  foreach (produto_get_types() as $type) {
+    $type_name = check_plain($type->name);
+    $permissions += array(
+      "create $type_name produto" => array(
+        'title' => t('%type_name: Create produtos', array('%type_name' => $type->label)),
+      ),
+      "edit own $type_name produto" => array(
+        'title' => t('%type_name: Edit own produtos', array('%type_name' => $type->label)),
+      ),
+      "edit any $type_name produto" => array(
+        'title' => t('%type_name: Edit any produto', array('%type_name' => $type->label)),
+      ),
+      "delete own $type_name produto" => array(
+        'title' => t('%type_name: Delete own produtos', array('%type_name' => $type->label)),
+      ),
+      "delete any $type_name produto" => array(
+        'title' => t('%type_name: Delete any produto', array('%type_name' => $type->label)),
+      ),
+      "view own $type_name produto" => array(
+        'title' => t('%type_name: View own produtos', array('%type_name' => $type->label)),
+      ),
+      "view any $type_name produto" => array(
+        'title' => t('%type_name: View any produto', array('%type_name' => $type->label)),
+      ),
+    );
+  }
+  return $permissions;
+}
+
+/**
+ * Determina se um usuário tem acesso a uma operação de tipo de produto.
+ *
+ * @param string
+ *   A operação sendo realizada. Um de 'view', 'update', 'create', 'delete' ou
+ *   simplesmente 'edit' (equivalente a 'create' ou 'update'). Neste caso, não
+ *   usamos nenhuma destas porque usamos uma permissão global para gerenciar
+ *   tipos de produtos.
+ * @param ProdutoType
+ *   Um tipo de produto específico para verificar o acesso.  Se não for
+ *   fornecido, verificamos de uma maneira global para todos tipos.
+ * @param stdClass
+ *   Um objeto de usuário específico para verificar acesso. Se não for
+ *   fornecido, verificamos para o usuário atual.
+ *
+ * @return boolean
+ *   Se o usuário tem ou não acesso.
+ */
+function produto_type_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer produto types', $account);
+}
+
+/**
+ * Determina se um usuário tem acesso a uma operação de Produto.
+ *
+ * @param string
+ *   A operação sendo realizada. Um de 'view', 'update', 'create', 'delete' ou
+ *   simplesmente 'edit' (equivalente a 'create' ou 'update').
+ * @param Produto
+ *   Um produto específico para verificar o acesso.  Se não for fornecido,
+ *   verificamos de uma maneira global para todos produtos.
+ * @param stdClass
+ *   Um objeto de usuário específico para verificar acesso. Se não for
+ *   fornecido, verificamos para o usuário atual.
+ *
+ * @return boolean
+ *   Se o usuário tem ou não acesso.
+ *
+ * @see hook_produto_access()
+ * @see produto_produto_access()
+ */
+function produto_access($op, $produto = NULL, $account = NULL) {
+  if (user_access('administer produto', $account)) {
+    return TRUE;
+  }
+
+  // Permite que módulos terceiros permitam/neguem o acesso.
+  $access = module_invoke_all('produto_access', $op, $produto, $account);
+
+  // Somente permitimos acesso se pelo menos um módulo permitiu o acesso e
+  // nenhum outro o negou.
+  if (in_array(FALSE, $access, TRUE)) {
+    return FALSE;
+  }
+  elseif (in_array(TRUE, $access, TRUE)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_produto_access().
+ */
+function produto_produto_access($op, $produto = NULL, $account = NULL) {
+  // @TODO inserimos aqui nossa lógica específica para permissões por tipo
+  // de produto e diferentes operações definidas no hook_permission().
+
+  // Para simplificar, retornamos sempre TRUE aqui. Não faça isto em casa!
+  return TRUE;
+}
+
+/**
+ * Retorna um array com todos os tipos de produto, chaveados pelo nome.
+ *
+ * @param $type_name
+ *   Se fornecido, retorna apenas um tipo específico.
+ * @return produtoType[]
+ *   Dependendo do $type_name, ou um tipo específico de produto ou um array
+ *   com todos os tipos.
+ */
+function produto_get_types($type_name = NULL) {
+  $produto_types = &drupal_static(__FUNCTION__);
+
+  if (empty($produto_types)) {
+    $produto_types = entity_load_multiple_by_name('produto_type', FALSE);
+  }
+
+  if (isset($type_name)) {
+    return isset($produto_types[$type_name]) ? $produto_types[$type_name] : FALSE;
+  }
+  else {
+    return $produto_types;
+  }
+}
+
+/**
+ * Salva um tipo de produto.
+ *
+ * @param $type
+ *   O objeto do tipo de produto.
+ * @return boolean
+ *   Se o tipo foi salvo com êxito.
+ */
+function produto_type_save(ProdutoType $type) {
+  return $type->save();
+}
+
+/**
+ * Loader de argumento de menu; carrega um objeto de tipo de produto por nome
+ * de máquina.
+ *
+ * @param $type
+ *   O nome de máquina do tipo de produto.
+ * @return ProdutoType|FALSE
+ *   O objeto do tipo de produto ou FALSE se o tipo não existe.
+ */
+function produto_type_load($type) {
+  return produto_get_types($type);
+}
+
+/**
+ * Exclui um tipo de produto.
+ *
+ * @param $type
+ *   O objeto do tipo de produto.
+ */
+function produto_type_delete(ProdutoType $type) {
+  $type->delete();
+}
+
+/**
+ * Salva um produto.
+ *
+ * @param Produto
+ *   O objeto do Produto.
+ * @return boolean
+ *   Se o produto foi salvo com êxito.
+ */
+function produto_save(Produto $produto) {
+  return $produto->save();
+}
+
+/**
+ * Carrega um produto.
+ *
+ * @param integer
+ *   O id do produto.
+ * @param boolean
+ *   Uma flag indicando se desejamos pular o cache.
+ * @return Produto|FALSE
+ *   Um objeto Produto ou FALSE se ocorreu algum erro.
+ *
+ * @see produto_load_multiple()
+ */
+function produto_load($pid, $reset = FALSE) {
+  $produtos = produto_load_multiple(array($pid), array(), $reset);
+  return reset($produtos);
+}
+
+/**
+ * Carrega múltiplos produtos baseados em certas condições.
+ *
+ * @param integer
+ *   Um array de ids de produto.
+ * @param array
+ *   Condições para verificar contra a tabela {produto}.
+ * @param boolean
+     Uma flag indicando se desejamos pular o cache.
+ * @return array|FALSE
+ *   Um array de objetos Produto, chaveado pelo id ou FALSE se nenhum foi
+ *   localizado.
+ *
+ * @see entity_load()
+ * @see produto_load()
+ * @see produto_load_by_user()
+ */
+function produto_load_multiple($pids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('produto', $pids, $conditions, $reset);
+}
+
+/**
+ * Exclui um produto.
+ *
+ * @param Produto
+ *   O objeto Produto que desejamos excluir.
+ */
+function produto_delete(Produto $produto) {
+  $produto->delete();
+}
+
+/**
+ * Cria um novo objeto do tipo Produto.
+ *
+ * @param array
+ *   Um array de valores para inicializar o objeto.
+ * @return Produto
+ *   Um objeto do tipo Produto.
+ */
+function produto_create(array $values) {
+  return new Produto($values);
+}
+
+/**
+ * Callback de página.
+ * Mostra uma entidade produto.
+ *
+ * Isto está aqui em vez de no "produto.pages.inc" porque se o Devel estiver
+ * habilitado e o usuário clicar no Devel->render teremos um erro porque
+ * aquele include não será carregado automaticamente.
+ *
+ * @param Produto
+ *   O produto que desejamos ver.
+ * @return string
+ *   A entidade de produto renderizada.
+ *
+ * @see produto_menu()
+ */
+function produto_view(Produto $produto) {
+  drupal_set_title(entity_label('produto', $produto));
+  return entity_view('produto', array(entity_id('produto', $produto) => $produto), 'full');
+}
+
+/**
+ * Callback de título de menu.
+ * Retorna o título da página para um determinado produto.
+ *
+ * @param Produto
+ *   O produto.
+ * @return string
+ *   O nome do produto.
+ *
+ * @see produto_menu()
+ */
+function produto_page_title(Produto $produto) {
+  return $produto->label();
+}
+
+/**
+ * Implements hook_menu().
+ */
+function produto_menu() {
+  $items = array();
+
+  // Página de administração de produtos.
+  // Para este exemplo vamos usar Views! :)
+//  $items['admin/content/produto'] = array(
+//    'title' => 'Produtos',
+//    'page callback' => 'produto_list',
+//    'access arguments' => array('administer produto'),
+//    'file' => 'produto.admin.inc',
+//    'type' => MENU_LOCAL_TASK,
+//  );
+
+  // Página de criação de produto.
+  $items['produto/add'] = array(
+    'title' => 'Criar produto',
+    'page callback' => 'produto_add_page',
+    'access arguments' => array('create produto'),
+    'file' => 'produto.pages.inc',
+  );
+
+  // Local action para adicionar produto na página de listagem.
+  $items['admin/content/produto/add'] = array(
+    'title' => 'Criar produto',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array('produto/add'),
+    'access arguments' => array('create produto'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  // Formulários específicos para adicionar cada tipo de produto.
+  foreach (produto_get_types() as $type => $info) {
+    $items['produto/add/' . $type] = array(
+      'title' => $info->getTranslation('label'),
+      'description' => isset($info->description) ? $info->description : '',
+      'page callback' => 'produto_add',
+      'page arguments' => array(2),
+      'access callback' => 'entity_access',
+      'access arguments' => array('create', 'produto', $type),
+      'file' => 'produto.pages.inc',
+    );
+  }
+
+  // Para conveniência.
+  $produto_uri = 'produto/%produto';
+  $produto_uri_argument_position = 1;
+
+  // Ver produto.
+  $items[$produto_uri] = array(
+    'title callback' => 'produto_page_title',
+    'title arguments' => array($produto_uri_argument_position),
+    'page callback' => 'produto_view',
+    'page arguments' => array($produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('view', 'produto', $produto_uri_argument_position),
+  );
+
+  $items[$produto_uri . '/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Editar produto.
+  $items[$produto_uri . '/edit'] = array(
+    'title' => 'Editar',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('produto_form', $produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'produto', $produto_uri_argument_position),
+    'file' => 'produto.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  // Excluir produto.
+  $items[$produto_uri . '/delete'] = array(
+    'title' => 'Excluir produto',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('produto_delete_form', $produto_uri_argument_position),
+    'access callback' => 'entity_access',
+    'access arguments' => array('edit', 'produto', $produto_uri_argument_position),
+    'file' => 'produto.pages.inc',
+  );
+
+  // Integração com o Devel.
+  if (module_exists('devel')) {
+    $devel_path = drupal_get_path('module', 'devel');
+    $items[$produto_uri . '/devel'] = array(
+      'title' => 'Devel',
+      'page callback' => 'devel_load_object',
+      'file' => 'devel.pages.inc',
+      'file path' => $devel_path,
+      'page arguments' => array('produto', $produto_uri_argument_position),
+      'access arguments' => array('access devel information'),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 100,
+    );
+
+    $items[$produto_uri . '/devel/load'] = array(
+      'title' => 'Load',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+    );
+
+    $items[$produto_uri . '/devel/render'] = array(
+      'title' => 'Render',
+      'page callback' => 'devel_render_object',
+      'page arguments' => array('produto', $produto_uri_argument_position),
+      'access arguments' => array('access devel information'),
+      'file' => 'devel.pages.inc',
+      'file path' => $devel_path,
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 100,
+    );
+  }
+
+  return $items;
+}
