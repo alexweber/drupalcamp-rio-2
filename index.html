@@ -96,12 +96,14 @@
         <div class="content">
           <h2>No Drupal 6 não existiam</h2>
 
-          <img src="images/d6-estrutura.png" />
+          <img class="center" src="images/d6-estrutura.png" />
 
-          <h3>Os principais objetos do Drupal eram representados de maneira independente.</h3>
 
           <div class="breather">
-            <ul class="small">
+          <h3>Os principais objetos do Drupal eram representados de maneira independente.</h3>
+
+
+            <ul class="med">
               <li>Eles fazem várias coisas de uma maneira bem parecida, mas nem tudo. O código é difícil de manter e as estruturas são difíceis de estender.</li>
               <li>Vários módulo gambi: Content Profile, Taxonomy Image, Node Comments, Webform, etc.</li>
           </ul>
@@ -119,7 +121,7 @@
           <h2>Manja abstração? Herança?</h2>
           <h3>Lembra daquelas aulas de Java na facul?</h3>
 
-          <img src="images/d7-estrutura.png" height="330"/>
+          <img class="center" src="images/d7-estrutura.png" height="330"/>
 
           <ul class="small">
             <li>Espécie de superclasse para objetos de Drupal.</li>
@@ -161,6 +163,8 @@
           <h2>Bundles, Entidades, Fields e Propriedades</h2>
           <h3>É mais fácil pensar em Nodes e Tipos de Conteúdo</h3>
 
+          <div class="mini-breather">
+
           <ul class="small">
             <li>O tipo de entidade é "Node"</li>
             <li>Cada tipo de conteúdo é na verdade um <b>bundle</b></li>
@@ -170,6 +174,8 @@
             <li>Node: publicado, promovido para a página inicial e destacado no topo de listas</li>
             <li>Muitas mais na real: autor, datas de criação e atualização, título, idioma, etc</li>
           </ul>
+
+          </div>
         </div>
 
         <footer>
@@ -231,7 +237,7 @@
         <div class="content">
           <h1>Bundles</h1>
 
-          <ul class="small">
+          <ul class="smallish">
             <li>Cada tipo de entidade precisa ter pelo menos um bundle</li>
             <li>Em casos aonde só queremos um bundle por tipo de entidade, podemos dar a ele o mesmo nome que o tipo da entidade</li>
             <li>Cada bundle pode ter fields e até compartilhá-los</li>
@@ -254,14 +260,14 @@
 
           <p>Duas maneiras distintas de armazenar informações sobre uma entidade (ou instância de um tipo de entidade)</p>
 
-          <h3>Fields</h3>
+          <h2 class="left">Fields</h2>
           <ul class="small">
             <li>Altamente extensíveis</li>
             <li>Representam um tipo de dado abstrato (Imagem, Endereço, Referência, etc.)</li>
             <li>Possuem <b>widgets</b> para inserção de dados e <b>formatters</b> para exibição</li>
           </ul>
 
-          <h3>Propriedades</h3>
+          <h2 class="left">Propriedades</h2>
           <ul class="small">
             <li>Dados simples</li>
             <li>Representam tipos de dados primários (varchar, text, int, float, etc)</li>
@@ -324,9 +330,9 @@
         <div class="content">
           <h1>Entenderam?</h1>
 
-          <h2>Sério?</h2>
+          <h3>Sério?</h3>
 
-          <h2>Não tem nenhuma pergunta?</h2>
+          <h2>Ninguém tem nenhuma pergunta?</h2>
 
           <div class="breather">
             <h3>Antes de saber como criar uma entidade, vamos dar um passo para trás e entender porque vale a pena e quando devemos e não devemos usar entidades customizadas</h3>
@@ -342,8 +348,8 @@
       <article id="porque" class="step slide" data-x="-500" data-y="3000">
         <div class="content">
           <h1>Por que criar uma nova entidade</h1>
-          <h3>Lembram do hook_schema()?</h3>
-          <ul class="small">
+          <h2>Lembram do hook_schema()?</h2>
+          <ul class="med">
             <li>drupal_write_record() é legal</li>
             <li>drupal_read_record() não existe<sup>*</sup></li>
             <li>Fields e Hooks na marra</li>
@@ -365,7 +371,7 @@
         <div class="content">
           <h1>Segura a emoção!</h1>
 
-          <h3>Nem sempre é uma boa idéia criar uma nova entidade!</h3>
+          <h2>Nem sempre é uma boa idéia criar uma nova entidade!</h2>
           <ul>
             <li>É relativamente complicado de implementar</li>
             <li>Não é perfeito; algumas integrações requerem código custom</li>
@@ -385,7 +391,7 @@
         <div class="content">
           <h1>Segura a emoção!</h1>
 
-          <h3>Muitas coisas podem <b><em>sim</em></b> ser representadas com Nodes</h3>
+          <h2>Muitas coisas podem <b><em>sim</em></b> ser representadas com Nodes</h2>
           <ul>
             <li>É fácil de implementar</li>
             <li>Tudo integrado</li>
@@ -405,7 +411,7 @@
         <div class="content">
           <h1>Segura a emoção!</h1>
 
-          <h3>Portanto, o hook_schema ainda é uma opção</h3>
+          <h2>Portanto, o hook_schema ainda é uma opção...</h2>
           <ul>
             <li>As vezes só queremos armazenar algum dado simples</li>
             <li>Nem sempre precisamos integrar com tudo</li>
@@ -424,14 +430,18 @@
           <h1>Não existe uma regra clara</h1>
           <h2>As vezes vale a pena, as vezes não!</h2>
 
+          <div class="mini-breather">
+
           <ul class="med">
             <li>Se você já estava pensando em criar um schema</li>
             <li>Se você precisa integrar com diversos componentes do Drupal</li>
             <li>Se você quer aprender como fazer na prática</li>
           </ul>
 
+          </div>
+
           <div class="breather">
-            <h3>Pode ser uma boa idéia criar uma entidade customizada!</h3>
+            <h2><b>Pode ser uma boa idéia criar uma entidade customizada!</b></h2>
           </div>
         </div>
 
@@ -492,7 +502,7 @@
             <li>Propriedades: ID, SKU, Autor, Destacado</li>
           </ul>
 
-          <h3>Tipos de produto (bundles)</h3>
+          <h3 class="left">Tipos de produto (bundles)</h3>
 
           <ul class="small">
             <li>Camiseta</li>
@@ -1808,10 +1818,14 @@ function produto_admin_paths() {
 
           <h2>Alguns módulos interessantes:</h2>
 
+          <div class="mini-breather">
+
           <ul class="med">
             <li>Entity Construction Kit: <a href="http://drupal.org/project/eck">http://drupal.org/project/eck</a></li>
             <li>Model Entities: <a href="http://drupal.org/project/model">http://drupal.org/project/model</a></li>
           </ul>
+
+          </div>
 
           <div class="breather">
 

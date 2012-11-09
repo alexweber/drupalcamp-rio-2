@@ -178,15 +178,40 @@ body {
 b, strong { font-weight: bold }
 i, em { font-style: italic }
 
-b, strong { color: #369; }
+a,
+h1,
+h2,
+h3,
+#titulo h1,
+#titulo-saidera h1 {
+  color: #FF8B01;
+  text-shadow: 1px 1px 2px #222;
+}
+
+.footnote,
+footer {
+  color: #dedede;
+}
+
+.slide {
+  color: #FF8B01;
+}
+
+h1,
+table,
+b,
+strong {
+  color: #dedede;;
+}
+
+h2 {
+  color: #aaa;
+}
 
 a {
-  /*color: inherit;*/
-  color: #369;
   text-decoration: none;
   padding: 0 0.1em;
   /*background: rgba(255,255,255,0.5);*/
-  text-shadow: -1px -1px 2px rgba(100,100,100,0.9);
   border-radius: 0.2em;
 
   -webkit-transition: 0.5s;
@@ -196,32 +221,29 @@ a {
   transition:         0.5s;
 }
 
-a:hover,
-a:focus {
-  /*background: rgba(255,255,255,1);*/
-  text-shadow: -1px -1px 2px rgba(100,100,100,0.5);
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
 }
 
 h1,
 h2 {
-  text-shadow: 1px 1px 1px #dedede;
-  color: #369;
   text-align: center;
   margin: 0.5em 0 0 0;
   font-family: 'lato_blackregular';
 }
 
 h2, h3 {
-  color: #666;
   margin-bottom: 0.5em;
 }
 
 h3 {
   margin-top: 0.5em;
+  text-align: center;
+}
+
+h2.left,
+h3.left {
+  text-align: left;
 }
 
 h1 {
@@ -258,8 +280,18 @@ ul.small {
   font-size: 0.8em;
 }
 
+ul.smallish {
+  font-size: 0.9em;
+}
+
 ul.huge {
   font-size: 2em;
+}
+
+img.center {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
 }
 
 ul li {
@@ -307,6 +339,10 @@ footer .footer-date {
   margin-right: 30px;
 }
 
+table {
+  margin-top: 20px;
+}
+
 table, td, th {
   border: 1px solid #333;
   text-align: center;
@@ -314,6 +350,10 @@ table, td, th {
 
 .breather {
   margin-top: 60px;
+}
+
+.mini-breather {
+  margin-top: 40px;
 }
 
 span.footnote {
@@ -334,7 +374,8 @@ th, td {
 }
 
 td {
-  font-family: 'lato_lightregular';
+  /*font-family: 'lato_lightregular';*/
+  font-size: 22px;
 }
 
 .step footer {
@@ -377,14 +418,11 @@ td {
   height: 700px;
   padding: 40px 60px;
 
-  background: url('../images/creampaper.png') 0 0;
+  /*background: url('../images/creampaper.png') 0 0;*/
+  background: url('../images/dark_wall.png') 0 0;
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
-
-  /*color: #BADA55;*/
-  color: #222333;
-  text-shadow: 0 2px 2px white;
 
   font-family: 'latoregular', 'Open Sans', Arial, sans-serif;
   font-size: 30px;
