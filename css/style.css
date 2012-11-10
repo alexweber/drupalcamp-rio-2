@@ -547,9 +547,21 @@ td {
 img.drupal-brasil-logo {
   height: 380px;
   display: block;
-  position: relative;
-  left: -20px;
-  margin: 40px auto 80px auto;
+  float: left;
+  margin-left: 80px;
+}
+
+img.phpnrio-logo {
+  float: right;
+  margin-top: 80px;
+  margin-right: 50px;
+}
+
+div.logo-container {
+  float: none;
+  clear: both;
+  height: 380px;
+  margin: 40px 0 80px 0;
 }
 
 #sobre div.content {
